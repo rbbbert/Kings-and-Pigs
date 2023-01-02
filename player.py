@@ -29,7 +29,7 @@ class Player(pygame.sprite.Sprite):
 
     def import_character_assets(self):
         character_path = 'graphics/character/'
-        self.animations = {'idle': [], 'run': [], 'jump': [], 'fall': []}
+        self.animations = {'idle': [], 'run': [], 'jump': [], 'fall': [], 'attack': []}
 
         for animation in self.animations.keys():
             full_path = character_path + animation
@@ -76,7 +76,7 @@ class Player(pygame.sprite.Sprite):
         else:
             self.direction.x = 0
 
-        if keys[pygame.K_SPACE] and self.on_ground:
+        if keys[pygame.K_UP] and self.on_ground:
             self.jump()
 
     def get_status(self):
@@ -97,7 +97,8 @@ class Player(pygame.sprite.Sprite):
     def jump(self):
         self.direction.y = self.jump_speed
 
-    def update(self):
+    def update(self, shift):
+        self.rect.x += shift
         self.get_input()
         self.get_status()
         self.animate()
